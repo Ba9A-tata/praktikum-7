@@ -1,6 +1,14 @@
-const express = require('express');
-const connectDatabase = require('./config/db');
-
 const app = express();
-const POST = 3000;
+const PORT = 3000;
 
+app.use(express.json());
+app.use(express.urlencoded({ extended: false}));
+
+async function startServer() {
+    await connectDatabase();
+    app.listen(PORT, () => {
+        console.log('Server running at http://localhost:$(PORT)');
+    });
+}
+
+startServer();
